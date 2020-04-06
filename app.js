@@ -45,8 +45,13 @@ function initGL(canvas) {
         gl.canvasWidth = canvas.width;
         gl.canvasHeight = canvas.height;
 
-        // todo enable depth test (z-buffering)
-        // todo enable backface culling
+        //Reference found on google https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/enable
+        // todo #7 - enable depth test (z-buffering)
+        gl.enable(gl.DEPTH_TEST);
+
+        // todo #7 - enable backface culling
+        gl.enable(gl.CULL_FACE);
+
     } catch (e) {}
 
     if (!gl) {
