@@ -9,5 +9,10 @@ uniform float uAlpha;
 varying vec2 vertexTextureCoords; 
 
 void main(void) {
-    gl_FragColor = vec4(vertexTextureCoords, 0.0, uAlpha);
+    //todo #3
+    //gl_FragColor = vec4(vertexTextureCoords, 0.0, uAlpha);
+
+    //todo #5
+    gl_FragColor = texture2D(uTexture, vertexTextureCoords);
+
 }
