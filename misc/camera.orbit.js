@@ -14,7 +14,9 @@ function OrbitCamera(input) {
     // -------------------------------------------------------------------------
     this.getViewMatrix = function() {
         // todo return the correct view matrix (you will need to use "clone")
-        return new Matrix4();
+        var camera = new Matrix4();
+        camera = this.cameraWorldMatrix.clone().inverse();
+        return camera;
     }
 
     // -----------------------------------------------------------------------------
