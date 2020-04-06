@@ -51,6 +51,7 @@ function initGL(canvas) {
 
         // todo #7 - enable backface culling
         gl.enable(gl.CULL_FACE);
+        gl.cullface(gl.BACK);
 
     } catch (e) {}
 
@@ -160,19 +161,22 @@ function updateAndRender() {
     //Reference found on google https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/blendFunc
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-    //todo #10
-    //Reference from guide http://www.mattmorgante.com/technology/javascript-sort-compare
-    const sphereGeometryReorder = sphereGeometryList.sort(function(a,b) {
-        const last = a.z;
-        const next = b.z;
-        return last > next ? -1 : 1;
-      });
+    //todo #10 - implement painter's algorithm
+    //reference http://www.mattmorgante.com/technology/javascript-sort-compare
+    var sorted = sphereGeometryList.sort((a, b)=>{
+        var cameraLoc = camera.getPosition();
+        var aPos = a.getPosition();
+        var bPos = b.getPosition();
+        var aDist = aPos.subtract(cameraLoc);
+        var bDist = bPos.subtract(cameraLoc);
+        return aDist < bDist ? 1 : -1;
+          });
 
     // uncomment when directed by guide
-    for (var i = 0; i < sphereGeometryReorder.length; ++i) {
-        sphereGeometryReorder[i].render(camera, projectionMatrix, textureShaderProgram);
+    for (var i = 0; i < sorted.length; ++i) {
+        sorted[i].render(camera, projectionMatrix, textureShaderProgram);
     }
 
     // todo - disable blending
-    gl.depthMask(false);
+    gl.disable(gl.BLEND);
 }

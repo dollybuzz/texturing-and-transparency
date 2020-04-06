@@ -9,11 +9,9 @@ function WebGLGeometryJSON(gl) {
     // -----------------------------------------------------------------------------
     this.getPosition = function() {
         // todo #9 - return a vector3 of this object's world position contained in its matrix
-        return new Vector3(
-            this.cameraWorldMatrix.elements[3],
-            this.cameraWorldMatrix.elements[7],
-            this.cameraWorldMatrix.elements[11]
-        ).normalize();
+        var e = this.worldMatrix.elements;
+        if (e != undefined)
+            return new Vector3(e[3], e[7], e[11]);
     }
 
 	// -----------------------------------------------------------------------------
