@@ -153,14 +153,26 @@ function updateAndRender() {
 
     groundGeometry.render(camera, projectionMatrix, textureShaderProgram);
 
-    // todo
+    // todo #8
     //   1. enable blending
+    gl.enable(gl.BLEND);
     //   2. set blend mode source to gl.SRC_ALPHA and destination to gl.ONE_MINUS_SRC_ALPHA
+    //Reference found on google https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/blendFunc
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+    //todo #10
+    //Reference from guide http://www.mattmorgante.com/technology/javascript-sort-compare
+    const sphereGeometryReorder = sphereGeometryList.sort(function(a,b) {
+        const last = a.z;
+        const next = b.z;
+        return last > next ? -1 : 1;
+      });
 
     // uncomment when directed by guide
-    for (var i = 0; i < sphereGeometryList.length; ++i) {
-        sphereGeometryList[i].render(camera, projectionMatrix, textureShaderProgram);
+    for (var i = 0; i < sphereGeometryReorder.length; ++i) {
+        sphereGeometryReorder[i].render(camera, projectionMatrix, textureShaderProgram);
     }
 
     // todo - disable blending
+    gl.depthMask(false);
 }

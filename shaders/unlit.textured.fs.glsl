@@ -15,4 +15,7 @@ void main(void) {
     //todo #5
     gl_FragColor = texture2D(uTexture, vertexTextureCoords);
 
+    //todo #8
+    gl_FragColor.a = uAlpha;
+
 }
